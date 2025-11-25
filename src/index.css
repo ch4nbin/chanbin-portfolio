@@ -456,7 +456,7 @@
   body {
     background-color: var(--background);
     color: #fff;
-    background-color: var(--koncept-black);
+    background-color: #000;
     overflow-x: hidden;
   }
 
@@ -2471,17 +2471,17 @@
   --sidebar-accent-foreground: oklch(.205 0 0);
   --sidebar-border: oklch(.922 0 0);
   --sidebar-ring: oklch(.708 0 0);
-  --koncept-black: #000;
-  --koncept-charcoal: #1a1a1a;
-  --koncept-dark-grey: #2c2c2c;
-  --koncept-medium-grey: #404040;
-  --koncept-light-grey: #606060;
-  --koncept-white: #fff;
-  --koncept-silver: silver;
-  --koncept-platinum: #e5e4e2;
-  --koncept-gold: gold;
-  --koncept-champagne: #f7e7ce;
-  --koncept-pearl: #f8f6f0;
+  --theme-black: #000;
+  --theme-charcoal: #1a1a1a;
+  --theme-dark-grey: #2c2c2c;
+  --theme-medium-grey: #404040;
+  --theme-light-grey: #606060;
+  --theme-white: #fff;
+  --theme-silver: silver;
+  --theme-platinum: #e5e4e2;
+  --theme-gold: gold;
+  --theme-champagne: #f7e7ce;
+  --theme-pearl: #f8f6f0;
 }
 
 .dark {

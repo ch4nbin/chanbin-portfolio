@@ -41,17 +41,17 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Modern Portfolio Color Palette */
-  --koncept-black: #000000;
-  --koncept-charcoal: #0a0a0f;
-  --koncept-dark-grey: #12121a;
-  --koncept-medium-grey: #1a1a2e;
-  --koncept-light-grey: #252540;
-  --koncept-white: #ffffff;
-  --koncept-silver: #94a3b8;
-  --koncept-platinum: #cbd5e1;
-  --koncept-gold: #3b82f6;
-  --koncept-champagne: #60a5fa;
-  --koncept-pearl: #dbeafe;
+  --theme-black: #000000;
+  --theme-charcoal: #0a0a0f;
+  --theme-dark-grey: #12121a;
+  --theme-medium-grey: #1a1a2e;
+  --theme-light-grey: #252540;
+  --theme-white: #ffffff;
+  --theme-silver: #94a3b8;
+  --theme-platinum: #cbd5e1;
+  --theme-gold: #3b82f6;
+  --theme-champagne: #60a5fa;
+  --theme-pearl: #dbeafe;
   
   /* Blue Accent Colors */
   --accent-primary: #3b82f6;
@@ -138,18 +138,18 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   
-  /* KONCEPT Premium Colors */
-  --color-koncept-black: var(--koncept-black);
-  --color-koncept-charcoal: var(--koncept-charcoal);
-  --color-koncept-dark-grey: var(--koncept-dark-grey);
-  --color-koncept-medium-grey: var(--koncept-medium-grey);
-  --color-koncept-light-grey: var(--koncept-light-grey);
-  --color-koncept-white: var(--koncept-white);
-  --color-koncept-silver: var(--koncept-silver);
-  --color-koncept-platinum: var(--koncept-platinum);
-  --color-koncept-gold: var(--koncept-gold);
-  --color-koncept-champagne: var(--koncept-champagne);
-  --color-koncept-pearl: var(--koncept-pearl);
+  /* Theme Colors */
+  --color-theme-black: var(--theme-black);
+  --color-theme-charcoal: var(--theme-charcoal);
+  --color-theme-dark-grey: var(--theme-dark-grey);
+  --color-theme-medium-grey: var(--theme-medium-grey);
+  --color-theme-light-grey: var(--theme-light-grey);
+  --color-theme-white: var(--theme-white);
+  --color-theme-silver: var(--theme-silver);
+  --color-theme-platinum: var(--theme-platinum);
+  --color-theme-gold: var(--theme-gold);
+  --color-theme-champagne: var(--theme-champagne);
+  --color-theme-pearl: var(--theme-pearl);
 }
 
 @layer base {
@@ -159,7 +159,7 @@
 
   body {
     @apply bg-background text-foreground overflow-x-hidden;
-    background-color: var(--koncept-black);
+    background-color: var(--theme-black);
     color: white;
   }
 }
@@ -330,7 +330,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--koncept-charcoal);
+  background: var(--theme-charcoal);
 }
 
 ::-webkit-scrollbar-thumb {
