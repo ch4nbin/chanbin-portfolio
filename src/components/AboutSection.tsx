@@ -47,13 +47,6 @@ export function AboutSection() {
       id="about"
       ref={sectionRef}
       className="relative min-h-screen flex items-center py-32 px-6 overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-          radial-gradient(circle at 20% 80%, rgba(96, 165, 250, 0.06) 0%, transparent 50%),
-          linear-gradient(180deg, #0a0a0f 0%, #000000 50%, #0a0a0f 100%)
-        `
-      }}
     >
       {/* Floating particles */}
       <div className="absolute inset-0">

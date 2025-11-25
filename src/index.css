@@ -2957,65 +2957,57 @@ html {
 }
 
 /* Saber border trail animation */
-@keyframes saber-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes saber-spin-reverse {
-  0% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+@keyframes border-trail {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
 .saber-border {
   position: relative;
   border-radius: 9999px;
-  overflow: hidden;
+  padding: 2px;
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #60a5fa 20%,
+    #93c5fd 35%,
+    #ffffff 50%,
+    #93c5fd 65%,
+    #60a5fa 80%,
+    #3b82f6 100%
+  );
+  background-size: 200% 100%;
+  animation: border-trail 1.5s linear infinite;
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
 }
 
-.saber-border::before {
-  content: '';
-  position: absolute;
-  inset: -150%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 340deg,
-    #3b82f6 345deg,
-    #60a5fa 350deg,
-    #93c5fd 355deg,
-    #ffffff 358deg,
-    #93c5fd 360deg
-  );
-  animation: saber-spin 2s linear infinite;
+.saber-border:hover {
+  box-shadow: 0 0 35px rgba(59, 130, 246, 0.5);
 }
 
-.saber-border-secondary::before {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 340deg,
-    rgba(148,163,184,0.7) 345deg,
-    rgba(203,213,225,0.9) 350deg,
-    rgba(241,245,249,1) 355deg,
-    #ffffff 358deg,
-    rgba(241,245,249,1) 360deg
+.saber-border-secondary {
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.5) 0%,
+    rgba(203, 213, 225, 0.7) 20%,
+    rgba(241, 245, 249, 0.9) 35%,
+    #ffffff 50%,
+    rgba(241, 245, 249, 0.9) 65%,
+    rgba(203, 213, 225, 0.7) 80%,
+    rgba(148, 163, 184, 0.5) 100%
   );
-  animation: saber-spin-reverse 2.5s linear infinite;
+  background-size: 200% 100%;
+  animation: border-trail 2s linear infinite;
+  box-shadow: 0 0 20px rgba(148, 163, 184, 0.3);
+}
+
+.saber-border-secondary:hover {
+  box-shadow: 0 0 30px rgba(148, 163, 184, 0.45);
 }
 
 .saber-border-inner {
   position: relative;
   background: #0a0a14;
   border-radius: 9999px;
-  margin: 2px;
 }
 

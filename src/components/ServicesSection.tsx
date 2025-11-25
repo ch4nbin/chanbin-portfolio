@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { Code, Cpu, Globe, Zap, Eye, Diamond } from "lucide-react";
 import { useRef } from "react";
 
@@ -112,78 +112,11 @@ function SkillCard({ skill, index }: { skill: typeof skills[0], index: number })
 }
 
 export function ServicesSection() {
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 60]);
-
   return (
     <section 
-      id="skills" 
-      ref={sectionRef}
+      id="skills"
       className="relative py-32 px-6 overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-          radial-gradient(circle at 70% 80%, rgba(96, 165, 250, 0.06) 0%, transparent 50%),
-          linear-gradient(180deg, #000000 0%, #0a0a0f 50%, #000000 100%)
-        `
-      }}
     >
-      {/* Floating 3D elements */}
-      <motion.div
-        className="absolute top-20 right-16 w-24 h-24 rounded-2xl preserve-3d"
-        style={{
-          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(96, 165, 250, 0.1) 100%)',
-          border: '1px solid rgba(59, 130, 246, 0.3)',
-          boxShadow: '0 0 50px rgba(59, 130, 246, 0.25)',
-          y: y1,
-        }}
-        animate={{ 
-          y: [-20, 20, -20], 
-          rotateY: [0, 360],
-          rotateX: [0, 180, 0],
-        }}
-        transition={{ 
-          y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-          rotateY: { duration: 20, repeat: Infinity, ease: "linear" },
-          rotateX: { duration: 16, repeat: Infinity, ease: "easeInOut" },
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-24 left-12 w-20 h-20 rounded-full"
-        style={{
-          background: 'radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.5) 0%, rgba(59, 130, 246, 0.2) 100%)',
-          boxShadow: '0 0 40px rgba(59, 130, 246, 0.35)',
-          y: y2,
-        }}
-        animate={{ 
-          y: [15, -20, 15],
-          scale: [1, 1.1, 1],
-          rotateZ: [0, 360],
-        }}
-        transition={{ 
-          y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-          scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-          rotateZ: { duration: 15, repeat: Infinity, ease: "linear" },
-        }}
-      />
-
-      {/* Orbiting ring */}
-      <motion.div
-        className="absolute top-1/2 left-12 w-32 h-32 rounded-full border border-blue-500/20"
-        style={{ 
-          transform: 'rotateX(75deg)',
-        }}
-        animate={{ rotateZ: [0, 360] }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-      />
-
       {/* Floating particles */}
       <div className="absolute inset-0">
         {[...Array(30)].map((_, i) => (

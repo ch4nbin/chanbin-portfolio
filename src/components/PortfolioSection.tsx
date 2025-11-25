@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "motion/react";
+import { motion, useTransform, useMotionValue, useSpring } from "motion/react";
 import { useRef } from "react";
 import { Github, ArrowUpRight, ExternalLink } from "lucide-react";
 import { siteConfig } from "../config/siteConfig";
@@ -165,75 +165,11 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
 }
 
 export function PortfolioSection() {
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({ 
-    target: sectionRef, 
-    offset: ["start end", "end start"] 
-  });
-  
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 80]);
-
   return (
     <section 
       id="projects" 
-      ref={sectionRef} 
       className="relative py-32 px-6 overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-          radial-gradient(circle at 20% 70%, rgba(96, 165, 250, 0.06) 0%, transparent 50%),
-          linear-gradient(180deg, #0a0a0f 0%, #000000 50%, #0a0a0f 100%)
-        `
-      }}
     >
-      {/* Floating 3D shapes */}
-      <motion.div
-        className="absolute top-28 left-[10%] w-20 h-20 rounded-xl preserve-3d"
-        style={{
-          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(96, 165, 250, 0.12) 100%)',
-          border: '1px solid rgba(59, 130, 246, 0.35)',
-          boxShadow: '0 0 50px rgba(59, 130, 246, 0.3)',
-          y: y1,
-        }}
-        animate={{ 
-          y: [-15, 15, -15], 
-          rotateY: [0, 360],
-          rotateX: [0, 180, 0],
-        }}
-        transition={{ 
-          y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-          rotateY: { duration: 18, repeat: Infinity, ease: "linear" },
-          rotateX: { duration: 14, repeat: Infinity, ease: "easeInOut" },
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-40 right-[12%] w-24 h-24 rounded-full"
-        style={{
-          background: 'radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.4) 0%, rgba(59, 130, 246, 0.2) 100%)',
-          boxShadow: '0 0 50px rgba(59, 130, 246, 0.35)',
-          y: y2,
-        }}
-        animate={{ 
-          y: [20, -20, 20],
-          scale: [1, 1.15, 1],
-          rotateY: [0, 360],
-        }}
-        transition={{ 
-          y: { duration: 7, repeat: Infinity, ease: "easeInOut" },
-          scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-          rotateY: { duration: 16, repeat: Infinity, ease: "linear" },
-        }}
-      />
-
-      {/* Orbiting ring */}
-      <motion.div
-        className="absolute top-1/2 right-8 w-36 h-36 rounded-full border border-blue-500/20"
-        style={{ transform: 'rotateX(75deg)' }}
-        animate={{ rotateZ: [0, 360] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      />
 
       {/* Floating particles */}
       <div className="absolute inset-0">
@@ -305,18 +241,16 @@ export function PortfolioSection() {
 
       {/* Ambient glow effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <motion.div 
+        <div 
           className="absolute top-1/4 right-0 w-[500px] h-[500px] blur-3xl"
           style={{ 
             background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%)',
-            y: y1,
           }}
         />
-        <motion.div 
+        <div 
           className="absolute bottom-1/4 left-0 w-[500px] h-[500px] blur-3xl"
           style={{ 
             background: 'radial-gradient(circle, rgba(96, 165, 250, 0.06) 0%, transparent 70%)',
-            y: y2,
           }}
         />
       </div>

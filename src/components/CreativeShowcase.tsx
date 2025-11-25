@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useTransform, useScroll } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import { MapPin, Calendar } from "lucide-react";
 
 const experiences = [
@@ -44,75 +43,11 @@ const experiences = [
 ];
 
 export function CreativeShowcase() {
-  const sectionRef = useRef<HTMLElement>(null);
-  
-  const { scrollYProgress } = useScroll({ 
-    target: sectionRef, 
-    offset: ["start end", "end start"] 
-  });
-  
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 60]);
-
   return (
     <section 
       id="experience" 
-      ref={sectionRef} 
       className="relative py-32 px-6 overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-          radial-gradient(circle at 70% 70%, rgba(96, 165, 250, 0.06) 0%, transparent 50%),
-          linear-gradient(180deg, #000000 0%, #0a0a0f 50%, #000000 100%)
-        `
-      }}
     >
-      {/* Floating 3D elements */}
-      <motion.div
-        className="absolute top-24 right-20 w-20 h-20 rounded-2xl preserve-3d"
-        style={{
-          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(96, 165, 250, 0.12) 100%)',
-          border: '1px solid rgba(59, 130, 246, 0.35)',
-          boxShadow: '0 0 45px rgba(59, 130, 246, 0.3)',
-          y: y1,
-        }}
-        animate={{ 
-          y: [-18, 18, -18], 
-          rotateY: [0, 360],
-        }}
-        transition={{ 
-          y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-          rotateY: { duration: 20, repeat: Infinity, ease: "linear" },
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-32 left-16 w-16 h-16 rounded-full"
-        style={{
-          background: 'radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.5) 0%, rgba(59, 130, 246, 0.25) 100%)',
-          boxShadow: '0 0 40px rgba(59, 130, 246, 0.4)',
-          y: y2,
-        }}
-        animate={{ 
-          y: [12, -18, 12],
-          scale: [1, 1.15, 1],
-          rotateZ: [0, 360],
-        }}
-        transition={{ 
-          y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-          scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-          rotateZ: { duration: 16, repeat: Infinity, ease: "linear" },
-        }}
-      />
-
-      {/* Orbiting rings */}
-      <motion.div
-        className="absolute top-1/3 left-8 w-28 h-28 rounded-full border border-blue-500/20"
-        style={{ transform: 'rotateX(70deg)' }}
-        animate={{ rotateZ: [0, 360] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-      />
-
       {/* Floating particles */}
       <div className="absolute inset-0">
         {[...Array(35)].map((_, i) => (
@@ -269,18 +204,16 @@ export function CreativeShowcase() {
 
       {/* Ambient effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <motion.div 
+        <div 
           className="absolute top-0 left-1/3 w-[500px] h-[500px] blur-3xl"
           style={{ 
             background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%)',
-            y: y1,
           }}
         />
-        <motion.div 
+        <div 
           className="absolute bottom-0 right-1/3 w-[500px] h-[500px] blur-3xl"
           style={{ 
             background: 'radial-gradient(circle, rgba(96, 165, 250, 0.06) 0%, transparent 70%)',
-            y: y2,
           }}
         />
       </div>

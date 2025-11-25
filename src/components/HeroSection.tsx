@@ -34,14 +34,6 @@ export function HeroSection() {
       id="hero"
       ref={sectionRef}
       className="relative h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-          radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.06) 0%, transparent 50%),
-          radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.04) 0%, transparent 50%),
-          linear-gradient(135deg, #000000 0%, #0a0a0f 100%)
-        `
-      }}
     >
       {/* Advanced particle system */}
       <div className="absolute inset-0">
@@ -159,84 +151,6 @@ export function HeroSection() {
           </motion.div>
         ))}
 
-        {/* Orbiting rings */}
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute left-1/2 top-1/2 border-2 rounded-full preserve-3d"
-            style={{
-              width: `${200 + i * 100}px`,
-              height: `${200 + i * 100}px`,
-              marginLeft: `-${100 + i * 50}px`,
-              marginTop: `-${100 + i * 50}px`,
-              borderColor: `rgba(59, 130, 246, ${0.3 - i * 0.08})`,
-            }}
-            animate={{
-              rotateX: [0, 360],
-              rotateY: [360, 0],
-            }}
-            transition={{
-              duration: 25 + i * 5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            <div 
-              className="absolute inset-0 rounded-full animate-pulse"
-              style={{
-                background: `linear-gradient(90deg, transparent, rgba(59, 130, 246, ${0.1 - i * 0.02}), transparent)`,
-              }}
-            />
-          </motion.div>
-        ))}
-
-        {/* Additional floating cubes */}
-        <motion.div
-          className="absolute top-[15%] right-[20%] w-20 h-20 preserve-3d"
-          animate={{
-            rotateX: [0, 360],
-            rotateY: [0, 360],
-            y: [-15, 15, -15],
-          }}
-          transition={{
-            rotateX: { duration: 18, repeat: Infinity, ease: "linear" },
-            rotateY: { duration: 14, repeat: Infinity, ease: "linear" },
-            y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-          }}
-        >
-          <div 
-            className="w-full h-full rounded-xl"
-            style={{
-              background: 'linear-gradient(135deg, rgba(96, 165, 250, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%)',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
-              boxShadow: '0 0 40px rgba(59, 130, 246, 0.25)',
-            }}
-          />
-        </motion.div>
-
-        {/* Bottom left sphere */}
-        <motion.div
-          className="absolute bottom-[20%] left-[15%] w-28 h-28 preserve-3d"
-          animate={{
-            rotateY: [0, 360],
-            y: [10, -20, 10],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            rotateY: { duration: 20, repeat: Infinity, ease: "linear" },
-            y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-            scale: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-          }}
-        >
-          <div 
-            className="w-full h-full rounded-full"
-            style={{
-              background: 'radial-gradient(circle at 25% 25%, rgba(147, 197, 253, 0.3) 0%, rgba(59, 130, 246, 0.15) 50%, rgba(30, 64, 175, 0.2) 100%)',
-              boxShadow: '0 0 60px rgba(59, 130, 246, 0.35), inset -15px -15px 40px rgba(0, 0, 0, 0.3), inset 10px 10px 30px rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(96, 165, 250, 0.2)',
-            }}
-          />
-        </motion.div>
       </motion.div>
 
       {/* Main content */}
@@ -249,7 +163,7 @@ export function HeroSection() {
           <motion.h1 
             className="text-8xl md:text-9xl lg:text-[14rem] font-black tracking-tighter mb-8 relative"
             animate={{ 
-              y: [0, -8, 0],
+              y: [0, -5, 0],
             }}
             transition={{ 
               duration: 4,
@@ -257,28 +171,33 @@ export function HeroSection() {
               ease: "easeInOut",
             }}
           >
-            {/* Main animated gradient text - blue shades only */}
+            {/* Main animated gradient text - shiny metallic effect */}
             <span className="relative hero-gradient-text">
               {siteConfig.company.name}
               <style>{`
                 .hero-gradient-text {
                   background: linear-gradient(
                     90deg,
-                    #93c5fd 0%,
-                    #60a5fa 25%,
-                    #3b82f6 50%,
-                    #60a5fa 75%,
-                    #93c5fd 100%
+                    #3b82f6 0%,
+                    #60a5fa 15%,
+                    #93c5fd 25%,
+                    #ffffff 30%,
+                    #93c5fd 35%,
+                    #60a5fa 50%,
+                    #3b82f6 65%,
+                    #60a5fa 80%,
+                    #93c5fd 90%,
+                    #3b82f6 100%
                   );
                   background-size: 200% auto;
                   -webkit-background-clip: text;
                   background-clip: text;
                   -webkit-text-fill-color: transparent;
-                  animation: hero-gradient-flow 4s ease-in-out infinite;
+                  animation: hero-shimmer 6s linear infinite;
+                  filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.4));
                 }
-                @keyframes hero-gradient-flow {
-                  0% { background-position: 0% center; }
-                  50% { background-position: 100% center; }
+                @keyframes hero-shimmer {
+                  0% { background-position: 200% center; }
                   100% { background-position: 0% center; }
                 }
               `}</style>
