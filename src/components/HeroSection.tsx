@@ -246,27 +246,58 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
         >
-          <h1 className="text-8xl md:text-9xl lg:text-[14rem] font-black tracking-tighter mb-8 relative">
-            <span 
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage: 'linear-gradient(to right, #3b82f6, #60a5fa, #93c5fd)',
-              }}
-            >
+          <motion.h1 
+            className="text-8xl md:text-9xl lg:text-[14rem] font-black tracking-tighter mb-8 relative"
+            animate={{ 
+              y: [0, -8, 0],
+            }}
+            transition={{ 
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {/* Main animated gradient text - blue shades only */}
+            <span className="relative hero-gradient-text">
               {siteConfig.company.name}
+              <style>{`
+                .hero-gradient-text {
+                  background: linear-gradient(
+                    90deg,
+                    #93c5fd 0%,
+                    #60a5fa 25%,
+                    #3b82f6 50%,
+                    #60a5fa 75%,
+                    #93c5fd 100%
+                  );
+                  background-size: 200% auto;
+                  -webkit-background-clip: text;
+                  background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  animation: hero-gradient-flow 4s ease-in-out infinite;
+                }
+                @keyframes hero-gradient-flow {
+                  0% { background-position: 0% center; }
+                  50% { background-position: 100% center; }
+                  100% { background-position: 0% center; }
+                }
+              `}</style>
             </span>
             
-            {/* Animated underline */}
+            {/* Simple animated underline */}
             <motion.div
-              className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 h-2 rounded-full"
+              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 rounded-full"
               style={{ 
-                width: "80%",
-                background: 'linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent)',
+                width: "40%",
+                background: 'linear-gradient(90deg, transparent, #3b82f6, transparent)',
               }}
-              animate={{ scaleX: [0, 1, 0] }}
+              animate={{ 
+                opacity: [0.5, 1, 0.5],
+                scaleX: [0.8, 1, 0.8],
+              }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             />
-          </h1>
+          </motion.h1>
         </motion.div>
 
         <motion.div

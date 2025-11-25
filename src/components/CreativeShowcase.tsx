@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from "motion/react";
-import { useRef, useEffect } from "react";
-import { MapPin, Calendar, ArrowRight } from "lucide-react";
+import { motion, useTransform, useScroll } from "motion/react";
+import { useRef } from "react";
+import { MapPin, Calendar } from "lucide-react";
 
 const experiences = [
   { 
@@ -45,8 +45,6 @@ const experiences = [
 
 export function CreativeShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
   
   const { scrollYProgress } = useScroll({ 
     target: sectionRef, 
@@ -55,22 +53,6 @@ export function CreativeShowcase() {
   
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, 60]);
-
-  const springConfig = { damping: 25, stiffness: 200 };
-  const rotateX = useSpring(useTransform(mouseY, [-400, 400], [4, -4]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-400, 400], [-4, 4]), springConfig);
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      const rect = sectionRef.current?.getBoundingClientRect();
-      if (rect) {
-        mouseX.set(event.clientX - rect.left - rect.width / 2);
-        mouseY.set(event.clientY - rect.top - rect.height / 2);
-      }
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
 
   return (
     <section 
@@ -191,131 +173,98 @@ export function CreativeShowcase() {
           </p>
         </motion.div>
 
-        {/* Timeline */}
-        <motion.div 
-          className="relative"
-          style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        >
-          {/* Timeline line */}
-          <div 
-            className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 md:-translate-x-px"
-            style={{ 
-              background: 'linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.4) 10%, rgba(59, 130, 246, 0.4) 90%, transparent)' 
-            }} 
-          />
-
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
+        {/* Experience Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={exp.company}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
               <motion.div
-                key={exp.company}
-                className={`relative flex items-start ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                viewport={{ once: true }}
+                className="group h-full rounded-2xl overflow-hidden relative"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  boxShadow: '0 15px 40px rgba(0, 0, 0, 0.3)',
+                }}
+                whileHover={{ 
+                  scale: 1.02, 
+                  borderColor: 'rgba(59, 130, 246, 0.4)',
+                  boxShadow: '0 20px 50px rgba(59, 130, 246, 0.15)',
+                }}
               >
-                {/* Timeline dot */}
-                <motion.div
-                  className="absolute left-6 md:left-1/2 w-4 h-4 rounded-full -translate-x-1/2"
-                  style={{ 
-                    background: `radial-gradient(circle, ${exp.color} 0%, ${exp.color}70 100%)`,
-                    boxShadow: `0 0 20px ${exp.color}70`,
-                  }}
-                  animate={{ scale: [1, 1.3, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                {/* Accent line */}
+                <div 
+                  className="absolute top-0 left-0 right-0 h-1"
+                  style={{ background: `linear-gradient(90deg, ${exp.color}, ${exp.color}50)` }}
                 />
-
-                {/* Card */}
-                <div className={`ml-14 md:ml-0 md:w-[calc(50%-2.5rem)] ${index % 2 === 0 ? 'md:pr-10' : 'md:pl-10'}`}>
-                  <motion.div
-                    className="group rounded-2xl overflow-hidden"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      boxShadow: '0 15px 40px rgba(0, 0, 0, 0.3)',
-                    }}
-                    whileHover={{ 
-                      scale: 1.02, 
-                      borderColor: 'rgba(59, 130, 246, 0.4)',
-                      boxShadow: '0 20px 50px rgba(59, 130, 246, 0.15)',
-                    }}
-                  >
-                    <div className="p-7">
+                
+                <div className="p-8">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
                       {exp.status && (
                         <span 
-                          className="inline-block px-4 py-1.5 text-xs font-semibold rounded-full mb-4"
+                          className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full mb-3"
                           style={{ 
                             background: `${exp.color}20`,
-                            border: `1px solid ${exp.color}50`,
+                            border: `1px solid ${exp.color}40`,
                             color: exp.color,
                           }}
                         >
                           {exp.status}
                         </span>
                       )}
-                      
-                      <h3 className="text-xl font-bold text-white mb-2">{exp.company}</h3>
-                      <p className="text-base font-medium mb-4" style={{ color: exp.color }}>{exp.role}</p>
-                      
-                      <div className="flex flex-wrap gap-4 text-white/50 text-sm mb-5">
-                        <span className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4" />
-                          {exp.location}
-                        </span>
-                        <span className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          {exp.period}
-                        </span>
-                      </div>
-                      
-                      <p className="text-white/60 text-sm leading-relaxed mb-5">{exp.description}</p>
-                      
-                      {exp.highlights && (
-                        <div className="flex flex-wrap gap-2.5">
-                          {exp.highlights.map((h, i) => (
-                            <span 
-                              key={i} 
-                              className="px-3.5 py-1.5 text-xs rounded-lg"
-                              style={{ 
-                                background: 'rgba(255, 255, 255, 0.06)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                color: 'rgba(255, 255, 255, 0.7)',
-                              }}
-                            >
-                              {h}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                      <h3 className="text-2xl font-bold text-white">{exp.company}</h3>
                     </div>
-                  </motion.div>
+                    <div 
+                      className="w-3 h-3 rounded-full flex-shrink-0 mt-2"
+                      style={{ 
+                        background: exp.color,
+                        boxShadow: `0 0 15px ${exp.color}`,
+                      }}
+                    />
+                  </div>
+                  
+                  <p className="text-base font-semibold mb-4" style={{ color: exp.color }}>{exp.role}</p>
+                  
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 text-white/50 text-sm mb-5">
+                    <span className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" />
+                      {exp.location}
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" />
+                      {exp.period}
+                    </span>
+                  </div>
+                  
+                  <p className="text-white/60 text-sm leading-relaxed mb-5">{exp.description}</p>
+                  
+                  {exp.highlights && (
+                    <div className="flex flex-wrap gap-2">
+                      {exp.highlights.map((h, i) => (
+                        <span 
+                          key={i} 
+                          className="px-3 py-1.5 text-xs rounded-lg font-medium"
+                          style={{ 
+                            background: `${exp.color}15`,
+                            border: `1px solid ${exp.color}30`,
+                            color: exp.color,
+                          }}
+                        >
+                          {h}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Education */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <div 
-            className="inline-flex flex-wrap items-center justify-center gap-5 px-10 py-5 rounded-full"
-            style={{ 
-              background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(96, 165, 250, 0.08) 100%)',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
-              boxShadow: '0 0 40px rgba(59, 130, 246, 0.15)',
-            }}
-          >
-            <span className="text-blue-400 font-semibold text-lg">🎓 Princeton University</span>
-            <span className="text-white/30 hidden sm:inline">|</span>
-            <span className="text-white/70">Computer Science '28</span>
-          </div>
-        </motion.div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* Ambient effects */}

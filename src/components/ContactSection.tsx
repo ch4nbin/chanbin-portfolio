@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useState, useRef } from "react";
-import { Send, Mail, MapPin, Linkedin, Github, Sparkles } from "lucide-react";
+import { Send, Mail, MapPin } from "lucide-react";
 import { siteConfig } from "../config/siteConfig";
 
 export function ContactSection() {
@@ -36,16 +36,11 @@ export function ContactSection() {
     { icon: MapPin, label: "Location", value: siteConfig.contact.location },
   ];
 
-  const socialLinks = [
-    { icon: Github, href: siteConfig.social.github, label: "GitHub" },
-    { icon: Linkedin, href: siteConfig.social.linkedin, label: "LinkedIn" },
-  ].filter(link => link.href);
-
   return (
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="relative py-32 px-6 overflow-hidden"
+      className="relative min-h-screen flex items-center py-32 px-6 overflow-hidden"
       style={{
         background: `
           radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
@@ -126,7 +121,7 @@ export function ContactSection() {
         ))}
       </div>
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 w-full">
         {/* Header */}
         <motion.div 
           className="text-center mb-16" 
@@ -160,16 +155,17 @@ export function ContactSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Contact Form */}
           <motion.div 
             initial={{ opacity: 0, x: -40 }} 
             whileInView={{ opacity: 1, x: 0 }} 
             transition={{ duration: 0.8 }} 
             viewport={{ once: true }}
+            className="w-full"
           >
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
                 <input
                   type="text"
                   name="name"
@@ -177,7 +173,7 @@ export function ContactSection() {
                   onChange={handleChange}
                   placeholder="Your Name"
                   required
-                  className="w-full px-5 py-4 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:outline-none"
+                  className="w-full px-5 py-4 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:outline-none focus:border-blue-500/50"
                   style={{ 
                     background: 'rgba(255, 255, 255, 0.05)',
                     border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -190,7 +186,7 @@ export function ContactSection() {
                   onChange={handleChange}
                   placeholder="Your Email"
                   required
-                  className="w-full px-5 py-4 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:outline-none"
+                  className="w-full px-5 py-4 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:outline-none focus:border-blue-500/50"
                   style={{ 
                     background: 'rgba(255, 255, 255, 0.05)',
                     border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -205,7 +201,7 @@ export function ContactSection() {
                 onChange={handleChange}
                 placeholder="Subject"
                 required
-                className="w-full px-5 py-4 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:outline-none"
+                className="w-full px-5 py-4 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:outline-none focus:border-blue-500/50"
                 style={{ 
                   background: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -218,8 +214,8 @@ export function ContactSection() {
                 onChange={handleChange}
                 placeholder="Your Message..."
                 required
-                rows={5}
-                className="w-full px-5 py-4 rounded-xl text-white placeholder-white/40 resize-none transition-all duration-300 focus:outline-none"
+                rows={6}
+                className="w-full px-5 py-4 rounded-xl text-white placeholder-white/40 resize-none transition-all duration-300 focus:outline-none focus:border-blue-500/50"
                 style={{ 
                   background: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -229,7 +225,7 @@ export function ContactSection() {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-10 py-5 rounded-full font-semibold flex items-center justify-center gap-4 transition-all duration-300"
+                className="w-full px-10 py-5 rounded-xl font-medium uppercase tracking-wider text-sm flex items-center justify-center gap-3 transition-all duration-300"
                 style={{
                   background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(96, 165, 250, 0.15) 100%)',
                   border: '1px solid rgba(59, 130, 246, 0.5)',
@@ -272,7 +268,7 @@ export function ContactSection() {
             {contactInfo.map((info, index) => (
               <motion.div
                 key={info.label}
-                className="flex items-center gap-5 p-5 rounded-2xl"
+                className="flex items-center gap-5 p-6 rounded-2xl"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -295,7 +291,7 @@ export function ContactSection() {
                 >
                   <info.icon className="w-6 h-6 text-blue-400" />
                 </div>
-                <div>
+                <div className="flex-1">
                   <p className="text-white/50 text-sm mb-1">{info.label}</p>
                   {info.href ? (
                     <a 
@@ -311,34 +307,9 @@ export function ContactSection() {
               </motion.div>
             ))}
 
-            {/* Social Links */}
-            <div className="flex gap-4 pt-4">
-              {socialLinks.map((social, i) => (
-                <motion.a
-                  key={i}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-14 h-14 rounded-xl flex items-center justify-center"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                  }}
-                  whileHover={{ 
-                    scale: 1.1, 
-                    borderColor: 'rgba(59, 130, 246, 0.5)',
-                    background: 'rgba(59, 130, 246, 0.15)',
-                  }}
-                  title={social.label}
-                >
-                  <social.icon className="w-6 h-6 text-white/70" />
-                </motion.a>
-              ))}
-            </div>
-
             {/* Availability Card */}
             <motion.div 
-              className="p-7 rounded-2xl mt-6"
+              className="p-6 rounded-2xl"
               style={{
                 background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(96, 165, 250, 0.06) 100%)',
                 border: '1px solid rgba(59, 130, 246, 0.25)',
@@ -348,13 +319,13 @@ export function ContactSection() {
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-3">
                 <motion.div 
                   className="w-3 h-3 rounded-full bg-green-400"
                   animate={{ scale: [1, 1.3, 1], opacity: [1, 0.7, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
-                <span className="text-white/80 font-medium">Available for Opportunities</span>
+                <span className="text-white font-medium">Available for Opportunities</span>
               </div>
               <p className="text-white/50 text-sm leading-relaxed">
                 Currently open to internships, research positions, and interesting collaborative projects.
